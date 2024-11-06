@@ -32,11 +32,28 @@ app.post('/api/users', async (req, res) => {
         });
     }
 });
-// Create a GET route that sends back all users from the collection
-app.get('/api/users', async (_, res) => {
-    const users = await User.find();
+// Create a POST route that adds a note for a user
+app.post('/api/note', async (req, res) => {
+    // req.body should have a user_id and text which is the text of the note
+    // Find the user from the database, using the User model
+    const user = await User.findById(req.body.user_id);
+    // Push a new note object/document to the user's notes array property
+    user?.notes.push({
+        text: req.body.text
+    });
+    await user?.save();
     res.json({
-        users: users
+        user: user
+    });
+});
+// Get a single user and their notes
+app.get('/api/user/:user_id', async (req, res) => {
+    const user_id = req.params.user_id;
+    // Create a variable that stores the user we find by id
+    const user = await User.findById(user_id);
+    // Send a json response back to the client with the user attached
+    res.json({
+        user: user
     });
 });
 connection.once('open', () => {

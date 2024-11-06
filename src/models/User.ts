@@ -25,6 +25,7 @@ const userSchema = new Schema({
         // Ensure the string is at least 6 characters long
         minLength: [6, 'Your password must be at least 6 characters in length'],
     },
+    // The notes property is going to be an array of notes documents and the noteSchema describes what that note document looks like
     notes: [noteSchema]
 }, {
     toJSON: {
