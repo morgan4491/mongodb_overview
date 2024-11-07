@@ -4,13 +4,6 @@ import bcrypt from 'bcrypt';
 const { Schema, model } = mongoose;
 const { hash, compare } = bcrypt;
 
-const noteSchema = new Schema({
-    text: {
-        type: String,
-        minLength: [3, 'Your note must be at least 3 characters in length']
-    }
-});
-
 const userSchema = new Schema({
     email: {
         type: String,
@@ -25,8 +18,11 @@ const userSchema = new Schema({
         // Ensure the string is at least 6 characters long
         minLength: [6, 'Your password must be at least 6 characters in length'],
     },
-    // The notes property is going to be an array of notes documents and the noteSchema describes what that note document looks like
-    notes: [noteSchema]
+    // The notes property is going to be an array of note ids from the notes collection
+    notes: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Note'
+    }]
 }, {
     toJSON: {
         transform(_, user) {
