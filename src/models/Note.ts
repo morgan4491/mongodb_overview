@@ -8,9 +8,9 @@ const likeSchema = new Schema({
         ref: 'User'
     }
 }, 
-// {
-//     _id: false       // This option removes the _id from the like
-// }                    
+{
+    _id: false       // This option removes the _id from the like
+}                    
 );
 
 const noteSchema = new Schema({

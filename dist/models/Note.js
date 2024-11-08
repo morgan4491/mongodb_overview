@@ -5,6 +5,8 @@ const likeSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     }
+}, {
+    _id: false // This option removes the _id from the like
 });
 const noteSchema = new Schema({
     text: {
