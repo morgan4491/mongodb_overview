@@ -43,11 +43,13 @@ export async function addUserNote(req, res) {
 export async function getUserNotesById(req, res) {
     const user_id = req.params.user_id;
     // Create a variable that stores the user we find by id
-    const user = await User.findById(user_id).populate('notes');
-    // Send a json response back to the client with the user attached
-    res.json({
-        user: user
+    const user = await User.findById(user_id).populate({
+        path: 'notes',
+        select: 'text'
     });
+    // const user = await User.findById(user_id).select('email -_id');
+    // Send a json response back to the client with the user attached
+    res.json(user);
 }
 export async function getAllNotes(_, res) {
     // Find all notes and populate the user property on each note

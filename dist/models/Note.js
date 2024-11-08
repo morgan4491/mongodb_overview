@@ -5,8 +5,6 @@ const likeSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     }
-}, {
-    _id: false
 });
 const noteSchema = new Schema({
     text: {
